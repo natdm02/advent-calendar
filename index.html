@@ -9,17 +9,29 @@
     <!-- css -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="bg-dark text-white">
 
     <div class="container py-5">
         <h1 class="text-center mb-4">Calendario dell'Avvento</h1>
         <div id="calendar-container">
-        
-        </div>
 
+        </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="btn-close" aria-label="Close"></button>
+            <div id="modal-body" class="text-center">
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay hidden"></div>
+
     <script src="js/source.js"></script>
+    <script src="js/script.js"></script>
+    
 </body>
 </html>
