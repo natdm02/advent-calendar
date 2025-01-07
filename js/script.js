@@ -4,11 +4,23 @@ const modalBody = document.getElementById('modal-body');
 const overlay = document.getElementById('overlay');
 const closeModalButton = document.getElementById('close-modal');
 
+
+//localStorage
+const openedBoxes = JSON.parse(localStorage.getItem('openedBoxes')) || [];
+
+
+function saveOpenedBox(day) {
+  if (!openedBoxes.includes(day)) {
+    openedBoxes.push(day);
+    localStorage.setItem('openedBoxes', JSON.stringify(openedBoxes));
+  }
+}
+
+
 // showmodal
 function showModal(content) {
 
   modalBody.innerHTML = content; 
-  console.log('Contenuto attuale nella modale:', modalBody.innerHTML); 
   modal.classList.remove('hidden'); 
   overlay.classList.remove('hidden'); 
 }
@@ -36,9 +48,15 @@ function generateCalendar() {
       dayBox.classList.add('day-25');
     }
 
+    
+    if (openedBoxes.includes(day)) {
+      dayBox.classList.add('open');
+    }
+
     dayBox.addEventListener('click', () => {
       if (dayBox.classList.contains('open')) return;
       dayBox.classList.add('open'); 
+      saveOpenedBox(day);
       
       const contentData = source[day - 1];
       const content = contentData.type === "image"
@@ -50,6 +68,4 @@ function generateCalendar() {
     calendarContainer.appendChild(dayBox);
   }
 }
-
-overlay.classList.add('hidden');
 generateCalendar();

@@ -90,3 +90,9 @@
         font-size: 1.2rem;
         cursor: pointer;
   }
+  
+  .day-box.open {
+    background-color: #a1c8c3;
+    color: #fff;
+    text-decoration: line-through;
+  }
