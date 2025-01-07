@@ -7,6 +7,7 @@ body::before {
   height: 100%;
   background-color: #110745; 
   z-index: -1;
+  font-family: 'Livvic', sans-serif;
 }
 
 #calendar-container {
@@ -30,14 +31,16 @@ body::before {
   height: 300px;
   background-color: #2C2EEB;
   border-radius: 10px;
-  overflow: hidden; /* Taglia eventuali elementi che escono */
+  overflow: hidden;
   position: relative;
 }
 
 .header-text h1 {
+  text-align: center;
+  padding-top: 30px; 
   font-size: 3rem;
   font-family: 'Livvic', sans-serif;
-  font-weight: 700;
+  font-weight: 300;
   color: white;
   margin: 0;
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
@@ -55,7 +58,7 @@ body::before {
 .header-image {
   background: url('/images/header-bg.png') no-repeat center center;
   background-size: contain;
-  min-height: 100%;
+  min-height: 80%;
   border-radius: 100%;
   display: block;
 }
@@ -96,16 +99,12 @@ body::before {
 .day-box.day-25 {
   grid-column: span 8;
   height: 200px; 
-  font-size: 2.5rem; 
+  font-size: 3rem; 
+  font-weight: 400;
   background-color: #D4D6F5;
-  color: #fff;
-  border-radius: 10px;
+  color: #336859;
+  border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.day-number {
-  font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .modal {
