@@ -20,15 +20,23 @@ function saveOpenedBox(day) {
 // showmodal
 function showModal(content) {
 
-  modalBody.innerHTML = content; 
-  modal.classList.remove('hidden'); 
-  overlay.classList.remove('hidden'); 
+  modalBody.innerHTML = `
+    <div>
+      ${content}
+      <button id="close-content-modal" class="btn btn-secondary mt-3">Chiudi</button>
+    </div>
+  `;
+  modal.style.display = 'block'; 
+  overlay.style.display = 'block'; 
+
+  const closeContentModal = document.getElementById('close-content-modal');
+  closeContentModal.addEventListener('click', closeModal);
 }
 
 // closemodal
 function closeModal() {
-  modal.classList.add('hidden'); 
-  overlay.classList.add('hidden'); 
+  modal.style.display = 'none'; 
+    overlay.style.display = 'none';
 }
 
 closeModalButton.addEventListener('click', closeModal);
@@ -37,35 +45,50 @@ overlay.addEventListener('click', closeModal);
 
 // generatecalendar
 function generateCalendar() {
-
   for (let day = 1; day <= 25; day++) {
     const dayBox = document.createElement('div');
     dayBox.classList.add('day-box', 'text-center');
-    dayBox.textContent = day;
 
     
+    const icon = document.createElement('div');
+    icon.classList.add('day-icon');
+    const iconName = source[day - 1]?.icon || "ico-stella"; 
+    icon.innerHTML = `<img src="images/icons/${iconName}.png" alt="Icona">`;
+
+    const number = document.createElement('div');
+    number.classList.add('day-number');
+    number.textContent = day;
+
+    // 25
     if (day === 25) {
       dayBox.classList.add('day-25');
     }
 
-    
     if (openedBoxes.includes(day)) {
       dayBox.classList.add('open');
+    } else {
+      dayBox.classList.add('closed');
     }
 
     dayBox.addEventListener('click', () => {
-      if (dayBox.classList.contains('open')) return;
+      if (dayBox.classList.contains('open')) return; 
+    
       dayBox.classList.add('open'); 
-      saveOpenedBox(day);
-      
+      saveOpenedBox(day); 
+    
       const contentData = source[day - 1];
       const content = contentData.type === "image"
         ? `<img src="${contentData.url}" alt="${contentData.icon}" style="width: 100%;">`
         : `<p>${contentData.text}</p>`;
-
       showModal(content);
     });
+    
+    dayBox.appendChild(icon);
+    dayBox.appendChild(number);
     calendarContainer.appendChild(dayBox);
   }
 }
+
+
+
 generateCalendar();
