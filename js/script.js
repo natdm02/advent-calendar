@@ -4,10 +4,8 @@ const modalBody = document.getElementById('modal-body');
 const overlay = document.getElementById('overlay');
 const closeModalButton = document.getElementById('close-modal');
 
-
-//localStorage
+// Save an open box to localStorage
 const openedBoxes = JSON.parse(localStorage.getItem('openedBoxes')) || [];
-
 
 function saveOpenedBox(day) {
   if (!openedBoxes.includes(day)) {
@@ -16,53 +14,49 @@ function saveOpenedBox(day) {
   }
 }
 
+// Show modal
 
-// showmodal
 function showModal(content) {
-
   modalBody.innerHTML = `
     <div>
       ${content}
       <button id="close-content-modal" class="btn btn-secondary mt-3">Chiudi</button>
     </div>
   `;
-  modal.style.display = 'block'; 
-  overlay.style.display = 'block'; 
+  modal.style.display = 'block';
+  overlay.style.display = 'block';
 
   const closeContentModal = document.getElementById('close-content-modal');
   closeContentModal.addEventListener('click', closeModal);
 }
 
-// closemodal
+// Close the modal
+
 function closeModal() {
-  modal.style.display = 'none'; 
-    overlay.style.display = 'none';
+  modal.style.display = 'none';
+  overlay.style.display = 'none';
 }
 
 closeModalButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
+// Generate the calendar
 
-// generatecalendar
 function generateCalendar() {
   for (let day = 1; day <= 25; day++) {
     const dayBox = document.createElement('div');
     dayBox.classList.add('day-box', 'text-center');
 
-    
     const icon = document.createElement('div');
     icon.classList.add('day-icon');
-    const iconName = source[day - 1]?.icon || "ico-stella"; 
+    const iconName = source[day - 1]?.icon || "ico-stella";
     icon.innerHTML = `<img src="images/icons/${iconName}.png" alt="Icona">`;
 
     const number = document.createElement('div');
     number.classList.add('day-number');
     number.textContent = day;
 
-    // 25
-    if (day === 25) {
-      dayBox.classList.add('day-25');
-    }
+    if (day === 25) dayBox.classList.add('day-25');
 
     if (openedBoxes.includes(day)) {
       dayBox.classList.add('open');
@@ -71,24 +65,22 @@ function generateCalendar() {
     }
 
     dayBox.addEventListener('click', () => {
-      if (dayBox.classList.contains('open')) return; 
-    
-      dayBox.classList.add('open'); 
-      saveOpenedBox(day); 
-    
+      if (dayBox.classList.contains('open')) return;
+
+      dayBox.classList.add('open');
+      saveOpenedBox(day);
+
       const contentData = source[day - 1];
       const content = contentData.type === "image"
         ? `<img src="${contentData.url}" alt="${contentData.icon}" style="width: 100%;">`
         : `<p>${contentData.text}</p>`;
       showModal(content);
     });
-    
+
     dayBox.appendChild(icon);
     dayBox.appendChild(number);
     calendarContainer.appendChild(dayBox);
   }
 }
-
-
 
 generateCalendar();
